@@ -1,0 +1,17 @@
+
+# local VM - Standalone
+# MDB_CONNECT=mongodb://myserver1:27021
+
+# local VM - Replica Set
+# MDB_CONNECT=mongodb://myserver1:27021,myserver2:27022,myserver3:27023/test?replicaSet=myReplicaSet
+
+# AWS - Standalone
+# MDB_CONNECT=mongodb://ip-172-31-51-192.ec2.internal:27017
+# MDB_CONNECT=mongodb://agent1:27017
+
+# AWS - Replica Set
+# MDB_CONNECT=mongodb://ip-172-31-51-192.ec2.internal:27017,ip-172-31-53-122.ec2.internal:27017,ip-172-31-59-247.ec2.internal:27017/test?replicaSet=myReplicaSet
+
+# Atlas
+# MDB_CONNECT=mongodb+srv://<user>:<password>@clustername.quel1.mongodb.net/demo?retryWrites=true&w=majority
+

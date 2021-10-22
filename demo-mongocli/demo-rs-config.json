@@ -1,0 +1,31 @@
+{
+  "name": "demo-rs-mongocli",
+  "version": "4.4.3-ent",
+  "featureCompatibilityVersion": "4.4",
+  "processes": [
+    {
+      "hostname": "myserver1",
+      "dbPath": "/data",
+      "logPath": "/data/mongodb.log",
+      "priority": 2,
+      "votes": 1,
+      "port": 27017
+    },
+    {
+      "hostname": "myserver2",
+      "dbPath": "/data",
+      "logPath": "/data/mongodb.log",
+      "priority": 1,
+      "votes": 1,
+      "port": 27017
+    },
+    {
+      "hostname": "myserver3",
+      "dbPath": "/data",
+      "logPath": "/data/mongodb.log",
+      "priority": 1,
+      "votes": 1,
+      "port": 27017
+    }
+  ]
+}

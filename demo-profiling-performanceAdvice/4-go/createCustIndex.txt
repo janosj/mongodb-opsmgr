@@ -1,0 +1,8 @@
+db = db.getSiblingDB("test") 
+db.getCollection("customers").createIndex({ 
+    "region": 1,
+    "address.state": 1,
+    "gender": 1,
+    "yob": 1
+})
+
