@@ -1,6 +1,6 @@
 # Install MDB standalone
 # Use to import existing MDB deployment into Ops Manager.
-# https://docs.mongodb.com/v4.4/tutorial/install-mongodb-enterprise-on-red-hat/
+# https://docs.mongodb.com/v5.0/tutorial/install-mongodb-enterprise-on-red-hat/
 
 if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root"
@@ -18,12 +18,12 @@ cp limits.conf /etc/security
 # configure yum repo
 echo
 echo Configuring Yum repo....
-echo "[mongodb-enterprise-4.4]
+echo "[mongodb-enterprise-5.0]
 name=MongoDB Enterprise Repository
-baseurl=https://repo.mongodb.com/yum/redhat/8/mongodb-enterprise/4.4/x86_64/
+baseurl=https://repo.mongodb.com/yum/redhat/$releasever/mongodb-enterprise/5.0/$basearch/
 gpgcheck=1
 enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc" | sudo tee /etc/yum.repos.d/mongodb-enterprise-4.4.repo
+gpgkey=https://www.mongodb.org/static/pgp/server-5.0.asc" | sudo tee /etc/yum.repos.d/mongodb-enterprise-5.0.repo
 
 # Install MongoDB
 echo
