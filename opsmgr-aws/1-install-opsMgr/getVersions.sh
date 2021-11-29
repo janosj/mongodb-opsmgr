@@ -29,8 +29,6 @@ wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mo
 wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-ubuntu1604-4.2.5.tgz
 wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-ubuntu1604-4.2.1.tgz
 
-# The docs say to also download Tools for local mode, and this ends up being required for Sharded clusters.
-# Not easy to determine the vorrect version. See Parsons EA Demo Notes.
 # Get the URL format from download center.
 # Get the correct version from Ops Manager, when you CONFIRM before deploying (bottom of screen).  
 # Or, see the error message if you try to deploy and it's not there.
