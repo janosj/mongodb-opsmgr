@@ -46,8 +46,6 @@ fi
 echo "Installing new OM package... Selet Y to overwrite existing files."
 dpkg -i $downloadFolder/$omFile
 
-# Update get_versions.sh to include 100.3.1 or later of Tools (as required by OM 5)
-
 echo "Restoring local mode modifications in conf-mms.properties..."
 cat <<EOT >> /opt/mongodb/mms/conf/conf-mms.properties
 automation.versions.source=local
@@ -56,4 +54,7 @@ EOT
 
 echo "Starting Ops Manager..."
 sudo service mongodb-mms start
+
+# Update get_versions.sh to include 100.3.1 or later of Tools (as required by OM 5)
+./get_versions.sh
 
