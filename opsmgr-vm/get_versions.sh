@@ -15,7 +15,7 @@ download_file () {
    if [ ! -f $DOWNLOAD_FOLDER/$file_to_download ]
    then
      echo "Downloading $file_to_download..."
-     curl -o $DOWNLOAD_FILE/$file_to_download $DOWNLOAD_URL/$file_to_download
+     curl -o $DOWNLOAD_FOLDER/$file_to_download $DOWNLOAD_URL/$file_to_download
    else
      echo "$file_to_download already downloaded."
    fi
