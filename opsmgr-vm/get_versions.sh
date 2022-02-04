@@ -22,14 +22,13 @@ download_file () {
 
 }
 
+download_file mongodb-linux-x86_64-enterprise-ubuntu1804-5.6.0.tgz
 download_file mongodb-linux-x86_64-enterprise-ubuntu1804-5.1.0.tgz
 download_file mongodb-linux-x86_64-enterprise-ubuntu1804-5.0.3.tgz
 download_file mongodb-linux-x86_64-enterprise-ubuntu1804-4.4.3.tgz
 download_file mongodb-linux-x86_64-enterprise-ubuntu1804-4.4.1.tgz
 download_file mongodb-linux-x86_64-enterprise-ubuntu1804-4.2.5.tgz
 download_file mongodb-linux-x86_64-enterprise-ubuntu1804-4.2.1.tgz
-download_file mongodb-linux-x86_64-enterprise-ubuntu1804-4.0.20.tgz
-download_file mongodb-linux-x86_64-enterprise-ubuntu1804-3.6.20.tgz
 # Different download URL
 curl -o $DOWNLOAD_FOLDER/mongodb-database-tools-ubuntu1804-x86_64-100.5.0.tgz https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu1804-x86_64-100.5.0.tgz
 download_file mongodb-database-tools-ubuntu1804-x86_64-100.5.0.tgz
