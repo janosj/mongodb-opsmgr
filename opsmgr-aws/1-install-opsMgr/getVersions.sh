@@ -10,6 +10,7 @@ wget -P /opt/mongodb/mms/mongodb-releases http://downloads.mongodb.org/linux/mon
 
 # Enterprise
 # RHEL8
+wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-rhel80-5.0.6.tgz
 wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-rhel80-5.0.2.tgz
 wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-rhel80-4.4.9.tgz
 wget -P /opt/mongodb/mms/mongodb-releases https://downloads.mongodb.com/linux/mongodb-linux-x86_64-enterprise-rhel80-4.4.3.tgz
