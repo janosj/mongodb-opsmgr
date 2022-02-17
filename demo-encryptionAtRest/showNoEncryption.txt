@@ -16,3 +16,5 @@ find /data -name "collection*.wt" | xargs strings | grep "Chernobyl"
 # Use whatever shows best.
 # Best to run these queries prior to demo, to verify results.
 
+# strings utility may not be available. Install via binutils package.
+
