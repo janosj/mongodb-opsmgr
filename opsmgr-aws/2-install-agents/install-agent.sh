@@ -53,9 +53,13 @@ cp -p ./opsmgrCA.pem /etc/mongodb-mms/
 # You don't have to use it, you can just use /data if you don't overlap components. 
 echo Making data directories...
 mkdir -p /data
+mkdir -p /data/db1
+mkdir -p /data/db2
+mkdir -p /data/performanceDB
 mkdir -p /data/shards
 mkdir -p /data/configRS
 mkdir -p /data/mongos
+mkdir -p /data/bic
 mkdir -p /data2
 chown -R mongod:mongod /data
 chown -R mongod:mongod /data2
