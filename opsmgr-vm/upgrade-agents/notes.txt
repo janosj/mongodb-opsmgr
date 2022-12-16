@@ -1,0 +1,21 @@
+As part of the Ops Manager upgrade process, the agents have to be upgraded.
+This is typically done via the Ops Manager UI (a simple click of the button). 
+But here, we have to incorporate the new agent into the Docker containers
+(all changes are lost when the containers are restarted).
+
+Paul Done’s build notes for the VM has the procedure to build the containers. 
+With this repo copied into the VM, run build-agent.sh (as root).
+Ops Manager has to be running, because the script reaches out to it for the new agent.
+
+To verify, use the Ops Manager UI : The server view shows what version of the agents 
+are running on each host, which should match the version that’s available in 
+Agents > Downloads.
+
+The Dockerfile doesn't include any agent config file. 
+Everything gets passed in to the run command (in start_containers.ssh)
+
+Docker volumes map to /var/lib/docker/volumes on host. 
+That directory builds up over time. 
+Use docker volume prune to eliminate unused volumes (not belonging to any containers). 
+Last I ran this it reclaimed 6GB of space.
+
