@@ -24,9 +24,15 @@ do
 done
 
 # Loop creating a set of Docker containers
+#   Dec 2022: added --privileged after upgrading to OM 6 (6.0.7).
+#   Could not deploy a MDB instance, error was:
+#   "set_mempolicy: Operation not permitted setting interleave mask: Operation not permitted."
+#   "Error running start command. cmd=[Args=[numactl --interleave=all /var/lib/mongodb-mms-automation/mongodb-linux-x86_64-6.0.1-ent/bin/mongod -f /data/automation-mongod.conf]]
+#   Searching that error led to here: 
+#   https://stackoverflow.com/questions/43267481/how-can-i-numactl-membind-a-process-inside-docker-container
 for i in $(seq 1 $NUMBER_TO_CREATE)
 do
-    cmd=" docker run -p 2702${i}:2702${i} -p 2703${i}:2703${i} -p 3306${i}:3306${i} "${ADD_HOST_LIST_PARAMS}" --hostname=myserver${i} -d --name automation-agent-container${i} -t mongo/automation-agent /opt/mongodb-mms-automation/bin/mongodb-mms-automation-agent --mmsGroupId=${PROJECTID} --mmsApiKey=${APIKEY} --mmsBaseUrl=https://opsmgr:8443 -httpsCAFile=/etc/mongodb-mms/opsmgrCA.pem  -logLevel=INFO -logFile=/var/log/mongodb-mms-automation/automation-agent.log"
+    cmd=" docker run --privileged -p 2702${i}:2702${i} -p 2703${i}:2703${i} -p 3306${i}:3306${i} "${ADD_HOST_LIST_PARAMS}" --hostname=myserver${i} -d --name automation-agent-container${i} -t mongo/automation-agent /opt/mongodb-mms-automation/bin/mongodb-mms-automation-agent --mmsGroupId=${PROJECTID} --mmsApiKey=${APIKEY} --mmsBaseUrl=https://opsmgr:8443 -httpsCAFile=/etc/mongodb-mms/opsmgrCA.pem  -logLevel=INFO -logFile=/var/log/mongodb-mms-automation/automation-agent.log"
     eval "${cmd}"
 done
 

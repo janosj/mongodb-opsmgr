@@ -1,5 +1,7 @@
 FROM ubuntu:18.04
 
+COPY mongodb-mms-automation-agent-manager_latest_amd64.ubuntu1604.deb .
+
 # Install the agent, the mongod dependencies, plus: curl, numactl & psmisc
 # For mongod dependencies see: https://docs.mongodb.com/manual/tutorial/install-mongodb-enterprise-on-linux/
 RUN set -x \
@@ -23,9 +25,8 @@ RUN set -x \
         rsyslog \
         binutils \
     && sed -i 's/module(load="imklog"/# module(load="imklog"/' /etc/rsyslog.conf \
-    # modified for SSL
-    # -k option is a hack to allow self-signed certificate
-    && curl -kOL https://172.17.0.1:8443/download/agent/automation/mongodb-mms-automation-agent-manager_latest_amd64.ubuntu1604.deb \
+    # this was pulled up into the main script.
+    # && curl -kOL https://172.17.0.1:8443/download/agent/automation/mongodb-mms-automation-agent-manager_latest_amd64.ubuntu1604.deb \
     && dpkg -i mongodb-mms-automation-agent-manager_latest_amd64.ubuntu1604.deb \
     && rm -rf mongodb-mms-automation-agent-manager_latest_amd64.ubuntu1604.deb \
     && apt-get autoremove \
