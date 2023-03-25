@@ -16,7 +16,12 @@ timedatectl set-timezone America/New_York
 # Added compat-openssl10 because I get an openssl error
 # trying to run mongosqld (the BI Connector) on CentOS 8
 echo Installing OS dependencies...
-sudo yum install -y cyrus-sasl cyrus-sasl-gssapi cyrus-sasl-plain krb5-libs libcurl lm_sensors-libs net-snmp net-snmp-agent-libs openldap openssl xz-libs
+# Using RHEL/CentOS 8.x dependencies From here:
+# https://www.mongodb.com/docs/ops-manager/v6.0/tutorial/provisioning-prep/#installing-mongodb-enterprise-dependencies
+sudo yum install -y cyrus-sasl cyrus-sasl-gssapi \
+     cyrus-sasl-plain krb5-libs libcurl \
+     lm_sensors-libs net-snmp net-snmp-agent-libs \
+     openldap openssl xz-libs
 
 # BI Connector would install but not run.
 # Error message reported in /var/log/mongodb-mms-automation/mongosqld-<..>-fatal.log:
@@ -30,9 +35,8 @@ sudo yum install -y compat-openssl10
 sudo yum install -y binutils
 
 # Ops Manager > Download Agent provides URL for specific agent version.
-# URL for -latest- comes from docs: 
-# https://docs.opsmanager.mongodb.com/current/tutorial/install-mongodb-agent-to-manage/#id100
-# but note the link provided there (currently) is incorrect. JIRA submitted.
+# URL for -latest- comes from docs (verify correct tab for OS version): 
+# https://www.mongodb.com/docs/ops-manager/v6.0/tutorial/install-mongodb-agent-to-manage/#download-the-latest-version-of-the-mongodb-agent
 # -k option is to allow self-signed certificate
 echo "Downloading agent ..."
 curl -k -O $MMSBASEURL/download/agent/automation/mongodb-mms-automation-agent-manager-latest.x86_64.rhel7.rpm

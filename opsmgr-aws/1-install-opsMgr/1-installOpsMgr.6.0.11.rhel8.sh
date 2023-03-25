@@ -7,7 +7,7 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-OMFILE=mongodb-mms-5.0.3.100.20211005T2044Z-1.x86_64.rpm
+OMFILE=mongodb-mms-6.0.11.100.20230310T0146Z.x86_64.rpm
 OMFILEPATH=./$OMFILE
 OMURL=https://downloads.mongodb.com/on-prem-mms/rpm/$OMFILE
 
@@ -20,9 +20,12 @@ echo "Setting timezone to US East Coast..."
 timedatectl set-timezone America/New_York
 
 # Install OS dependencies
-# Here: https://docs.opsmanager.mongodb.com/v5.0/tutorial/provisioning-prep/index.html#installing-mongodb-enterprise-dependencies
-sudo yum install -y cyrus-sasl cyrus-sasl-gssapi cyrus-sasl-plain krb5-libs libcurl net-snmp net-snmp-libs openldap openssl xz-libs
-
+# Here: https://www.mongodb.com/docs/ops-manager/v6.0/tutorial/provisioning-prep/#installing-mongodb-enterprise-dependencies
+# For RHEL/CentOS 8.x:
+sudo yum install -y cyrus-sasl cyrus-sasl-gssapi \
+     cyrus-sasl-plain krb5-libs libcurl \
+     lm_sensors-libs net-snmp net-snmp-agent-libs \
+     openldap openssl xz-libs
 
 # 1: Ensure ulimit settings meet minimum requirements.
 # Ops Manager fails if these aren't in place, especially once you enable backups.
@@ -32,12 +35,12 @@ cp limits.conf /etc/security
 # 2: Configure yum to install MongoDB
 echo
 echo Configuring Yum repo....
-echo "[mongodb-org-5.0]
+echo "[mongodb-org-6.0]
 name=MongoDB Repository
-baseurl=https://repo.mongodb.org/yum/redhat/8/mongodb-org/5.0/x86_64/
+baseurl=https://repo.mongodb.org/yum/redhat/8/mongodb-org/6.0/x86_64/
 gpgcheck=1
 enabled=1
-gpgkey=https://www.mongodb.org/static/pgp/server-5.0.asc" | sudo tee /etc/yum.repos.d/mongodb-org-5.0.repo
+gpgkey=https://www.mongodb.org/static/pgp/server-6.0.asc" | sudo tee /etc/yum.repos.d/mongodb-org-6.0.repo
 
 # 3: Install MongoDB
 echo
@@ -54,7 +57,7 @@ mkdir -p /data/appdb
 chown -R mongod:mongod /data
 
 # 6: Update the MongoDB configuration file.
-# No Changes
+# No Changes - using command-line options instead in (7).
 
 # 7: Start the OM AppDB Database mongod instance
 echo
@@ -75,13 +78,12 @@ echo
 echo Installing Ops Manager...
 yum install -y $OMFILEPATH
 
-# JJ: Copy config file with local mode settings. 
+# Using a custom config file with local mode settings. 
 echo
 echo Copying config file with local mode settings...
 cp /opt/mongodb/mms/conf/conf-mms.properties /opt/mongodb/mms/conf/conf-mms.properties.original
 sed "s/INTERNAL_HOSTNAME/$HOSTNAME/g" conf-mms.properties > /opt/mongodb/mms/conf/conf-mms.properties
 
-# JJ: Added SSL configuration.
 echo 
 echo "Configuring SSL..."
 # Create self-signed cert
@@ -97,7 +99,6 @@ sudo cp -p opsmgrCA.pem /etc/mongodb-mms
 sudo cp opsmgrCA.pem ~ec2-user
 sudo chmod 777 ~ec2-user/opsmgrCA.pem
 
-# JJ: Added for local mode.
 echo
 echo "Downloading MongoDB versions for local mode operation..."
 ./getVersions.sh
@@ -107,7 +108,7 @@ echo
 echo Starting Ops Manager...
 service mongodb-mms start
 
-# JJ: configure backups via blockstore
+# Configure backups via blockstore
 # (Considerations section of docs say instructions don't include backup).
 # For Blockstore, if selected, and also the S3 metadata, if selected.
 # Not used with a file system store?
