@@ -38,8 +38,8 @@ download_file mongodb-linux-x86_64-enterprise-rhel80-4.4.11.tgz https://download
 # Get the URL format from download center.
 # Get the correct version from Ops Manager, when you CONFIRM before deploying (bottom of screen).  
 # Or, see the error message if you try to deploy and it's not there.
-wget -P /opt/mongodb/mms/mongodb-releases https://fastdl.mongodb.org/tools/db/mongodb-database-tools-rhel80-x86_64-100.7.0.tgz
-wget -P /opt/mongodb/mms/mongodb-releases https://fastdl.mongodb.org/tools/db/mongodb-database-tools-rhel80-x86_64-100.6.1.tgz
+download_file mongodb-database-tools-rhel80-x86_64-100.7.0.tgz https://fastdl.mongodb.org/tools/db
+download_file mongodb-database-tools-rhel80-x86_64-100.6.1.tgz https://fastdl.mongodb.org/tools/db
 
 chown -R mongodb-mms:mongodb-mms /opt/mongodb/mms/mongodb-releases/*
 chmod -R 640 /opt/mongodb/mms/mongodb-releases/*.tgz
