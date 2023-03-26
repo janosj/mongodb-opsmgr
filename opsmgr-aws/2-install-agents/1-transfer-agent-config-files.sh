@@ -1,14 +1,15 @@
 #!/bin/bash
 
-# Transfers fully configured  agent config files to the specified number of agent instances.
-# Required information includes:
-#   mmsGroupId: goes in the automation-agent.config file
-#   mmsApiKey : goes in the automation-agent.config file
-#   mmsBaseUrl: goes in both the aa.config file and the install.sh file
-#
-# You can do this on each agent node before installing the agent, which gets cumbersome.
-# Or, using this script, just do it once on your laptop, and transfer the fully-configured 
-# files to all agents.
+echo "This script configures the agent config file with settings from Ops Manager,"
+echo "and then transfers those files to the specified number of agent instances."
+echo "The required settings from Ops Manager include:"
+echo "   mmsGroupId: inserted into the automation-agent.config file"
+echo "   mmsApiKey : inserted into the automation-agent.config file"
+echo "   mmsBaseUrl: inserted into both the aa.config file and the install.sh file"
+echo
+echo "To transfer the files, your /etc/hosts file must be updated to include"
+echo "entries for 'agent1', 'agent2', etc."
+echo
 
 if [ -z "$1" ]; then
     echo "No argument supplied"
