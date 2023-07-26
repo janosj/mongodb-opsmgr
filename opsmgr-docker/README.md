@@ -10,13 +10,15 @@ Docker Desktop
 
 ## Configuration Settings
 
-Update the env.conf file with the following settings:
+Update the *env.conf* file with the following settings:
 
-1. Specify your OM version (and its download URL) in env.conf. Note [here](https://www.mongodb.com/docs/ops-manager/current/core/requirements/#operating-systems-compatible-with-onprem) that Ops Manager doesn't officially support ARM, so the download URL is not architecture specific. These scripts are wired to use Amazon Linux 2, because it didn't exhibit any of the issues that cropped up with Amazon Linux 2023, or the (different) ones that cropped up with Ubuntu.
+1. Specify your OM version and its download URL. Note [here](https://www.mongodb.com/docs/ops-manager/current/core/requirements/#operating-systems-compatible-with-onprem) that Ops Manager doesn't officially support ARM, so the download URL is not architecture specific. These scripts are wired to use the Amazon Linux 2 operating system, because it didn't exhibit any of the issues that cropped up with Amazon Linux 2023, or the (different) ones that cropped up with Ubuntu.
 
 2. Specify the ARM64 JDK download URL. The x86 JDK will be replaced. 
 
-3. Specify the version of MongoDB to use for the AppDB.
+3. Specify the version of MongoDB to use for the AppDB. Consult the AppDB compatibility matrix ([here](https://www.mongodb.com/docs/ops-manager/current/tutorial/prepare-backing-mongodb-instances/#use-a-compatible-mongodb-version)).
+
+
 
 ## Building the Images
 
@@ -28,7 +30,7 @@ Update the env.conf file with the following settings:
 
 ## Running the Images
 
-Once the images are built, you can just switch to the */run* directory and run the scripts in order. Be advised that Ops Manager could take a few minutes to spin up.
+Once the images are built, you can just switch to the */run* directory and run the scripts in order. Ops Manager takes a minute to spin up.
 
 *run-agents.sh* is the only script that requires a command-line argument, which is the number of agents you want to spin up. Additionally, the startup script will prompt you for additional information (the Project ID and the API key) that you'll have to retrieve using the Ops Manager UI. When you access Ops Manager for the first time, you'll have to create an initial user. 
 
@@ -40,19 +42,19 @@ The *stopAll.sh* script will stop any running containers, and also remove them. 
 
 ## External Database Access
 
-Once Ops Manager is up and running, you'll likely want to deploy a database or two. And you might want to access those databases from your desktop, perhaps using MongoDB Compass or the Mongo shell. To do that, of course, you need to specify a connect string, which needs the server name(s) and the port(s). Note, though, that all this information is encapsulated within the Docker environment, so some extra steps are required to access it from your desktop:
+Once Ops Manager is up and running, you'll likely want to deploy a database or two. And you might want to access those databases from your desktop, perhaps using MongoDB Compass or the Mongo shell. To do that, you of course need to specify a connect string, which includes the server name(s) and port(s). Note, though, that all this information is encapsulated within the Docker environment, so some extra steps are required to access it from your desktop:
 
-1: Update your local hosts file to include entries for your Agent servers. An entry should look like this:
+1: Update your local */etc/hosts* file to include entries for your Agent servers. An entry should look like this:
 
-127.0.0.1       server1 server1.opsnet
+> 127.0.0.1       server1 server1.opsnet
 
-Now, you can specify the opsnet server and your networking will understand that it's actually running on your local machine. 
+Now you can specify a ".opsnet" server and your networking will understand that it's actually running on your local machine. 
 
-2: Next, it has to redirect your request to the mongod process running in Docker, and that it does that is through port mapping. Use the specially designated port in your connect string, and your local networking will know to forward that to the mongod process running in Docker. What port to use? The *docker run* command in *run-agents.sh* includes a port mapping. You can adjust this to suit your needs, but as written here you can deploy Mongo on port 27021 on server1, 27022 on server2, an so on, and then specify that port in your connect string from Compass, the shell, or your client-side tool of choice. For added flexibility, two additional ports are also included: 2703x and 3306x. 
+2: Next, it has to redirect your request to the mongod process running in Docker, and it does that is through port mapping. Use the specially designated port in your connect string, and your local networking will know to forward requests to the mongod processes running in Docker. What port to use? The *docker run* command in *run-agents.sh* includes a port mapping. You can adjust this to suit your needs, but as written here you can deploy Mongo on port 27021 on server1, 27022 on server2, an so on, and then specify that port in your connect string from Compass, the shell, or your client-side tool of choice. For added flexibility, two additional port mappings are included: 2703x and 3306x. 
 
 ## Credits
 
 This repo was adapted from Mihai Bojin's repo, available [here](https://github.com/mongodb-labs/omida/tree/main). 
 
-The Agent containers that have been added are based on some work that was originally done by Paul Done (for use with VirtualBox).
+Agent containers were added based on some work originally done by Paul Done (for use with VirtualBox).
 
