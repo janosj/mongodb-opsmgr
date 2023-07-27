@@ -7,6 +7,7 @@ Use these scripts to quickly provision the set of EC2 instances to host your Ops
 That will provision a larger host for your single-node Ops Manager installation, and 3 smaller instances as your agent worker nodes. *Sudo* is required because the script will also update your local */etc/hosts* file, to make it easy to access them without having to lookup the public hostnames or IP address. Instead, you can just connect using the following:
 
 > ssh -i <keyfile> opsmgr-aws
+>
 > ssh -i <keyfile> agent1
 
 You can specify any base OS image you want, but the examples use RHEL, and the OM installation scripts in this repo are written for RHEL.
