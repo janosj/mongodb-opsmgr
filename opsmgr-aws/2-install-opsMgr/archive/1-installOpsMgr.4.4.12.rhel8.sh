@@ -1,0 +1,141 @@
+# Simple Test Ops Manager Installation
+# Docs: https://docs.opsmanager.mongodb.com/current/tutorial/install-simple-test-deployment/
+# WARNING: Not suitable for a production deployment.
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root"
+   exit 1
+fi
+
+OMFILE=mongodb-mms-4.4.12.100.20210503T1412Z-1.x86_64.rpm
+OMFILEPATH=./$OMFILE
+OMURL=https://downloads.mongodb.com/on-prem-mms/rpm/$OMFILE
+
+echo "Setting hostname to 'opsmgr-aws'..."
+# Prereq: use opsmgr-aws as internal and external hostname.
+# This will be specified in the server's self-signed SSL certificate.
+hostnamectl set-hostname opsmgr-aws
+
+echo "Setting timezone to US East Coast..."
+timedatectl set-timezone America/New_York
+
+# Install OS dependencies
+# Here: https://docs.opsmanager.mongodb.com/v4.4/tutorial/provisioning-prep/index.html#installing-mongodb-enterprise-dependencies
+sudo yum install -y cyrus-sasl cyrus-sasl-gssapi cyrus-sasl-plain krb5-libs libcurl net-snmp openldap openssl xz-libs
+
+
+# Step 1: Ensure ulimit settings meet minimum requirements.
+# Ops Manager fails if these aren't in place, especially once you enable backups.
+echo Increasing system limits for mongod user...
+cp limits.conf /etc/security
+
+# STEP 2: Configure yum to install MongoDB
+echo
+echo Configuring Yum repo....
+echo "[mongodb-org-4.4]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/8/mongodb-org/4.4/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-4.4.asc" | sudo tee /etc/yum.repos.d/mongodb-org-4.4.repo
+
+# STEP 3: Install MongoDB
+echo
+echo Installing MongoDB...
+yum install -y mongodb-org mongodb-org-shell
+
+# Step 4: Disable the mongod service
+systemctl disable mongod
+
+# STEP 5: Create the OM AppDB directory
+echo
+echo Creating AppDB and Backup directories...
+mkdir -p /data/appdb
+# No longer required according to the instructions, but it is according to the GUI.
+# I think this is the Blockstore, if selected, and also the S3 metadata, if selected.
+# Not used when using a file system store?
+mkdir -p /data/backup
+chown -R mongod:mongod /data
+
+# STEP 6: Update the MongoDB configuration file.
+# No Changes
+
+# STEP 7: Start the OM AppDB Database mongod instance
+echo
+echo Starting MongoDB AppDB and BackupDB databases...
+sudo -u mongod mongod --port 27017 --dbpath /data/appdb --logpath /data/appdb/mongodb.log --wiredTigerCacheSizeGB 1 --fork
+# See previous notes as to whether this is still required.
+sudo -u mongod mongod --port 27018 --dbpath /data/backup --logpath /data/backup/mongodb.log --wiredTigerCacheSizeGB 1 --fork
+
+# STEP 8: Download the Ops Manager package.
+if [ ! -f "$OMFILEPATH" ]; then
+  echo "Ops Manager RPM not found locally."
+  echo "Downloading Ops Manager RPM from MongoDB.com..."
+  curl $OMURL --output $OMFILEPATH
+fi
+
+# STEP 9: Unnecessary.
+
+# STEP 10: Install Ops Manager
+echo
+echo Installing Ops Manager...
+yum install -y $OMFILEPATH
+
+# STEP 10 Custom: Copy config file with local mode settings. 
+echo
+echo Copying config file with local mode settings...
+cp /opt/mongodb/mms/conf/conf-mms.properties /opt/mongodb/mms/conf/conf-mms.properties.original
+sed "s/INTERNAL_HOSTNAME/$HOSTNAME/g" conf-mms.properties > /opt/mongodb/mms/conf/conf-mms.properties
+
+echo 
+echo "Configuring SSL..."
+# Create self-signed cert
+# Note: subjectAltName (SAN) is required by Chrome browsers
+# If this generates an error (can't load /home/opsmgr/.rnd into RNG),
+# the fix is to comment RANDFILE line in /etc/ssl/openssl.cnf
+openssl req -newkey rsa:2048 -nodes -keyout opsmgrCA.key -x509 -subj "/CN=opsmgr-aws" -addext "subjectAltName = DNS:opsmgr-aws" -days 365 -extensions v3_ca -out opsmgrCA.crt
+cat opsmgrCA.crt opsmgrCA.key > opsmgrCA.pem
+sudo chown mongodb-mms:mongodb-mms opsmgrCA.pem
+sudo chmod 600 opsmgrCA.pem
+sudo cp -p opsmgrCA.pem /etc/mongodb-mms
+# self-signed cert will have to be copied to laptop and agents
+sudo cp opsmgrCA.pem ~ec2-user
+sudo chmod 777 ~ec2-user/opsmgrCA.pem
+
+
+echo
+echo "Downloading MongoDB versions (custom step)..."
+./getVersions.sh
+
+
+# STEP 11: Start Ops Manager
+echo
+echo Starting Ops Manager...
+service mongodb-mms start
+
+# STEP NOTHING. DO NOT DO THIS ANYMORE. (?)
+echo
+echo Creating HeadDB and File System Store directories...
+# Still required event though 4.4 doesn't use this anymore?
+mkdir /data/headdb
+sudo chown mongodb-mms:mongodb-mms /data/headdb
+
+#mkdir /data/filestore
+#sudo chown mongodb-mms:mongodb-mms /data/filestore
+
+# Trick to get the public DNS of this server
+# PUBLIC_HOSTNAME="$(curl http://169.254.169.254/latest/meta-data/public-hostname 2>/dev/null)"
+
+echo 
+echo "Ops Manager installation complete."
+echo "Run the next script from your laptop to get the CA cert,"
+echo "then access the Ops Manager UI (https://opsmgr-aws:8443 assuming it's in your /etc/hosts)"
+echo "and create the initial user (i.e. register for new account)."
+echo "Required settings are already configured."
+echo "Navigate to Deployment > Agents > Downloads & Settings."
+echo "Select your operating system."
+echo "Use the information from this page when you run transfer-agent-config-files.sh"
+echo "That script also pulls down the server cert (for local use) and pushes it to the agents."
+echo "Then ssh to each agent box to install the agents."
+echo "You're ready to demo! Good luck!"
+

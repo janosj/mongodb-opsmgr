@@ -1,0 +1,17 @@
+{
+  "name": "provision-aws-hardware",
+  "description": "Uses the AWS SDK for JavaScript to launch a set of EC2 instances.",
+  "version": "1.0.0",
+  "main": "provisionEC2Instance.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jonathan Janos",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1415.0"
+  }
+}
