@@ -12,7 +12,7 @@ The scripts prompts you for the required information, which can be obtained from
 
 - mmsApiKey: Click "Manage Agent API Keys" and "Generate". Copy the API key. 
 
-Now ssh to each of the agents :
+Now ssh to each of the agents and run the agent installation script: 
 
 > ssh -i <path-to-key> ec2-user@agent1
 > sudo ./install-agent.sh

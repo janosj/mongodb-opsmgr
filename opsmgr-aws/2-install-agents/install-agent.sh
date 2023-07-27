@@ -38,6 +38,7 @@ sudo yum install -y binutils
 # URL for -latest- comes from docs (verify correct tab for OS version): 
 # https://www.mongodb.com/docs/ops-manager/v6.0/tutorial/install-mongodb-agent-to-manage/#download-the-latest-version-of-the-mongodb-agent
 # -k option is to allow self-signed certificate
+# If you're still having trouble connecting, make sure Ops Manager is allowing inbound connections on port 8443.
 echo "Downloading agent ..."
 curl -k -O $MMSBASEURL/download/agent/automation/mongodb-mms-automation-agent-manager-latest.x86_64.rhel7.rpm
 
