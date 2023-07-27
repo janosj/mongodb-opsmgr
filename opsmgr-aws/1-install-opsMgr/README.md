@@ -1,6 +1,6 @@
-# Installing a Single-Node Ops Manager Demo Instance
+# Installing the Single-Node Ops Manager Demo Instance
 
-After provisioning an EC2 instance to host Ops Manager:
+These scripts will install a Simple Test Ops Manager Installation, as described in the Ops Manager product documentation [here](https://www.mongodb.com/docs/ops-manager/current/tutorial/install-simple-test-deployment/). After provisioning an EC2 instance to host Ops Manager:
 
 - ssh to the node at *opsmgr-aws* (your local */etc/hosts* file should have been updated). 
 
