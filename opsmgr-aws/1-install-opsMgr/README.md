@@ -1,6 +1,14 @@
 # Installing a Single-Node Ops Manager Demo Instance
 
-After provisioning a node to host Ops Manager, ssh to the node at *opsmgr-aws* (your local */etc/hosts* file should have been updated). Install git (*yum install git*) and clone this repo. From this install directory, run the *installOpsMgr* script. When the script completes, Ops Manager should be up and running. Note the following:
+After provisioning an EC2 instance to host Ops Manager:
+
+- ssh to the node at *opsmgr-aws* (your local */etc/hosts* file should have been updated). 
+
+- Install git (*yum install git*) and clone this repo. 
+
+- Switch to this install directory and run the *installOpsMgr* script. 
+
+When the script completes, Ops Manager should be up and running. Note the following:
 
 - The installation script configures Ops Manager for *local mode operation*, meaning the versions of MongoDB version that you want to deploy must be downloaded locally in advance (which is done for you by the *getVersions* script as part of the installation). 
 
