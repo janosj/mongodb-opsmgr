@@ -36,9 +36,21 @@ Once the images are built, you can just switch to the */run* directory and run t
 
 Once you have the required information from Ops Manager, and the *run-agents* script completes, your demo environment is ready. 
 
+## Configuring Backups
+
+To demonstrate backups:
+
+- You need a running backup daemon. This is started automatically by the Ops Manager container. 
+
+- You need a running backup database (this uses a blockstore for snapshot storage). Use the *start-backup.sh* script to launch another MongoDB database container.
+
+- You need to manually enable and configure backups through the Ops Manager UI. Select *Continuous Backups* on the meu and click through the guided process. A directory for the head db has been created at **/data/headdb**. Configure the Blockstore to connect at **backupdb:27017** (leave all other fields blank). 
+
+You should now be able to initiate a backup and demonstrate the recovery process.  
+
 ## Re-running the Images
 
-The *stopAll.sh* script will stop any running containers, and also remove them. This ensures that there are no hidden Docker artifacts on your system, and your environment will come up clean the next time you run it. For example, if an old AppDB container is sticking around when you restart Ops Manager, you'll see an error about a mismatched encryption key and you'll have to start over. When in doubt, stop all containers and run "docker system prune". 
+The *stop-image.sh* script will stop any running containers, and also remove them. This ensures that there are no hidden Docker artifacts on your system, and your environment will come up clean the next time you run it. For example, if an old AppDB container is sticking around when you restart Ops Manager, you'll see an error about a mismatched encryption key and you'll have to start over. When in doubt, stop all containers and run "docker system prune". 
 
 ## External Database Access
 
