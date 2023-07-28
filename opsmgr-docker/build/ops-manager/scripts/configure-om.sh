@@ -40,7 +40,7 @@ main() {
     _replace_property_in_file "$conf_file" "mms.mail.ssl" "false"
 
     # Configure backup head
-    local backup_dir="/root/mongodb-mms/head"
+    local backup_dir="/data/headdb"
     mkdir -p "${backup_dir}" && echo "Created directory: ${backup_dir}..."
     chmod -R 0777 "${backup_dir}"
     _replace_property_in_file "$conf_file" "rootDirectory" "${backup_dir}/"
@@ -55,6 +55,8 @@ main() {
     echo "WARNING: this is highly insecure, DO NOT IN PRODUCTION!"
     echo
     /root/mongodb-mms/bin/mms-gen-key
+    mkdir /root/.mongodb-mms
+    mv /etc/mongodb-mms/gen.key /root/.mongodb-mms/gen.key
 
 }
 
