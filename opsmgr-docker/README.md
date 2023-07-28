@@ -36,7 +36,7 @@ Once the images are built, you can just switch to the */run* directory and run t
 
 Once you have the required information from Ops Manager, and the *run-agents* script completes, your demo environment is ready. 
 
-## Configuring Backups
+### Configuring Backups
 
 To demonstrate backups:
 
