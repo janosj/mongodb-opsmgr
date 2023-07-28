@@ -6,5 +6,7 @@ then
   exit 1
 fi
 
-mongo --retryWrites $MDB_CONNECT practiceInsInfo.js
+echo "Env MDB_CONNECT set to $MDB_CONNECT"
+
+mongosh --retryWrites $MDB_CONNECT updateInsInfo.js
 

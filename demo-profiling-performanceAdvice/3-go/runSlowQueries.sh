@@ -6,7 +6,7 @@ then
   exit 1
 fi
 
-mongo --retryWrites $MDB_CONNECT --eval '
+mongosh --retryWrites $MDB_CONNECT --eval '
 while (true) {
   pickRandomQuery = Math.floor(Math.random() * 4);
   print("running slow query...");
