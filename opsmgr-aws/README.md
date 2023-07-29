@@ -1,6 +1,6 @@
 # Ops Manager Demo Environment for AWS
 
-Deploys a MongoDB Ops Manager demo environment on AWS using EC2 instances. The demo environment consists of a single-node Ops Manager installation and a configurable number of agents. To deploy the environment:
+Deploys a MongoDB Ops Manager demo environment in AWS using EC2 instances. The demo environment consists of a single-node Ops Manager installation and a configurable number of agents. To deploy the environment:
 
 1. Provision the EC2 instances.
 
