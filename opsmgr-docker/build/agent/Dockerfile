@@ -27,11 +27,9 @@ COPY downloaded-agent.aarch64.amzn2.rpm .
 RUN rpm -U ./downloaded-agent.aarch64.amzn2.rpm \
     && rm ./downloaded-agent.aarch64.amzn2.rpm
 
-# Two main volumes to be mounted to external volumes: 
-#  1) Place for all mongodb cluster configuration & data files
-#  2) Place for agent & db binary downloads, for quicker mongod re-start whenever containers are recycled
-#VOLUME /data /data2 /var/lib/mongodb-mms-automation
-#RUN chown mongodb:mongodb /data /data2 /var/lib/mongodb-mms-automation
+# External volume for db binary downloads.
+# Not setting this, so it's a clean start every time.
+# VOLUME /var/lib/mongodb-mms-automation
 
 # Directories for the MDB data and log files have to be created in advance.
 # At a minimum you need /data.

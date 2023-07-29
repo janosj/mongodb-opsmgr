@@ -51,6 +51,15 @@ main() {
     chmod -R 0777 "${automation_release_dir}"
     _replace_property_in_file "$conf_file" "automation.versions.directory" "${automation_release_dir}"
 
+    # Switch to hybrid mode if you want Ops Manager to download the file (vs. the agents),
+    # and then persist those versions from one demo run to the next using -v in the Run command:
+    #
+    #   docker run ..ops-manager..  -v ./mongodb-releases:/root/mongodb-mms/mongodb-releases/
+    #
+    # But this didn't really improve the performance all that much, and Ops Manager will 
+    # download the latest version of every release, all the way back to version 2.6! 
+    # _replace_property_in_file "$conf_file" "automation.versions.source" "hybrid"
+
     echo "Generating an encryption key"
     echo "WARNING: this is highly insecure, DO NOT IN PRODUCTION!"
     echo
