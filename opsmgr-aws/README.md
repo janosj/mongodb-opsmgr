@@ -2,7 +2,7 @@
 
 Deploys a MongoDB Ops Manager demo environment on AWS using EC2 instances. The demo environment consists of a single-node Ops Manager installation and a configurable number of agents. To deploy the environment:
 
-1. Privision the EC2 instances.
+1. Provision the EC2 instances.
 
 2. Deploy Ops Manager.
 
@@ -23,7 +23,4 @@ Details for steps 1 through 3 can be found in their respective folders. To confi
 - For hostname and port, enter **localhost:27018**. The other fields can be left blank. Click **Save**, then **Back to Project**.
 
 Also from the Ops Manager UI, in the Servers pane, activate Monitoring and Backup on all Servers.
-
-
-
 
