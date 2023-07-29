@@ -1,4 +1,4 @@
 # MongoDB Ops Manager
 
-A collection of scripts and utilities to demonstrate the features of Ops Manager in various environments.
+Scripts for deploying a *demo* instance of Ops Manager (*not* production!) in various environments (Docker, AWS EC2, and VirtualBox), as well as a few small demos you can use. 
 
