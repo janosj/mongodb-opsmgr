@@ -15,7 +15,7 @@ The container images have already been built and pushed to Quay.io, so all you h
 
 - Every script depends on the previous script completing. 
 
-- Ops Manager takes a minute to spin up. This script doesn't ever "complete", per se, as it tails the startup logs.
+- Ops Manager takes a minute to spin up. This script doesn't ever "complete", per se, as it tails the startup logs. Access Ops Manager at *http://localhost:8080*.
 
 - *run-agents.sh* is the only script that requires a command-line argument, which is the number of agents you want to spin up (e.g. "run-agents.sh 3"). Additionally, this script will prompt you for additional information (the Project ID and the API key) that you'll have to retrieve using the Ops Manager UI. When you first access Ops Manager you'll have to create the initial user.
 
