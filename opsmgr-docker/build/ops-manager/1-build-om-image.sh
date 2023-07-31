@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-# Expecting values for OM_TAG, OM_VERSION, and JDK_ARM64_BINARY.
+# Expecting values for OM_TAG, OM_BUILD_VERSION, and JDK_ARM64_BINARY.
 source ../../env.conf
 
 if [[ -z "$OM_TAG" ]]; then
@@ -9,8 +9,8 @@ if [[ -z "$OM_TAG" ]]; then
     echo
     exit 1
 fi
-if [[ -z "$OM_VERSION" ]]; then
-    echo "OM_VERSION not specified (tried ../../env.conf). Exiting."
+if [[ -z "$OM_BUILD_VERSION" ]]; then
+    echo "OM_BUILD_VERSION not specified (tried ../../env.conf). Exiting."
     echo
     exit 1
 fi
@@ -25,6 +25,8 @@ if [[ -z "$JDK_ARM64_BINARY" ]]; then
     exit 1
 fi
 
+OM_VERSION=$OM_BUILD_VERSION
+
 # Download the OM binary locally, if it doesn't already exist.
 OM_FILENAME=ops_manager.$OM_VERSION.tar.gz
 if [ ! -f $OM_FILENAME ]
@@ -35,13 +37,11 @@ else
     echo "Ops Manager $OM_VERSION binary already downloaded."
 fi
 
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-readonly DIR
-
 echo "Building the container for the local target architecture..."
 # Ops Manager doesn't officially support ARM. See here:
 # https://www.mongodb.com/docs/ops-manager/current/core/requirements/#operating-systems-compatible-with-onprem
 # The normal x86_64 binary is used. 
+
 echo
 docker build \
     --no-cache \

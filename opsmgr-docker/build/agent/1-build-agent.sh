@@ -18,5 +18,5 @@ echo "Downloading latest agent from OM..."
 
 curl -Lo downloaded-agent.aarch64.amzn2.rpm http://localhost:$DEFAULT_OM_PORT/download/agent/automation/mongodb-mms-automation-agent-manager-latest.aarch64.amzn2.rpm
 
-docker build --no-cache -t "$AGENT_TAG:latest" .
+docker build --no-cache -t "$AGENT_TAG:$OM_BUILD_VERSION" -t "$AGENT_TAG:latest" .
 

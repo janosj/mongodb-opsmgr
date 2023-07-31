@@ -15,16 +15,14 @@ EXPOSE $DEFAULT_OM_PORT/tcp
 # + additional packages Required at runtime:
 #    procps (ps)
 #    net-tools (netstat)
-RUN yum install -y tar gzip openssl \
+RUN test -n "$OM_VERSION" || (echo "OM_VERSION must be set (e.g., '5.0.10')" && false) \
+ && yum install -y tar gzip openssl \
                    procps net-tools
 
-# TO-DO: Check this - are they in place? Requires reboot?
+# TO-DO: Verify these are being properly set.
 # Ensure ulimit settings meet minimum requirements.
 # Ops Manager fails if these aren't in place, especially once you enable backups.
 COPY limits.conf /etc/security
-
-# Specify Ops Manager version
-RUN test -n "$OM_VERSION" || (echo "OM_VERSION must be set (e.g., '5.0.10')" && false)
 
 # Copy the setup scripts
 COPY scripts /root/scripts

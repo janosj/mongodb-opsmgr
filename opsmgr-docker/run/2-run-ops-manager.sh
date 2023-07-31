@@ -17,15 +17,13 @@ if [[ -z "$OM_TAG" ]]; then
     echo
     exit 1
 fi
-if [[ -z "$OM_VERSION" ]]; then
-    echo "OM_VERSION not specified! Tried ../env.conf. Exiting."
+if [[ -z "$OM_RUN_VERSION" ]]; then
+    echo "OM_RUN_VERSION not specified! Tried ../env.conf. Exiting."
     echo
     exit 1
 fi
 
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-readonly DIR
-
+OM_VERSION=$OM_RUN_VERSION
 
 echo "Starting Ops Manager $OM_VERSION"
 docker rm -f "ops-manager-$OM_VERSION"
