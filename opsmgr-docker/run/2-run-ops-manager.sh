@@ -37,6 +37,4 @@ docker run \
     --network $DOCKER_NETWORK \
     -p "8080:8080/tcp" \
     -it "$OM_TAG:$OM_VERSION"
-#--net bridge
-#--network $DOCKER_NETWORK \
 
