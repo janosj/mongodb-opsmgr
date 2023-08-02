@@ -48,7 +48,7 @@ RUN echo "Replacing JDK with ARM version from $JDK_ARM64_BINARY..." \
  && mv jdk mongodb-mms/
 
 # Startup:
-# Locks down the config settings for the Ops Manager UI and hte APPDB.
+# Locks down the config settings for the Ops Manager UI and the APPDB.
 # Starts Ops Manager (the gen.key file is create by the configure-om.sh script).
 # Starts the backup daemon.
 # Tails the log files. 
