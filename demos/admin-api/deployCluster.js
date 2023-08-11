@@ -15,12 +15,15 @@ const CONFIG_FILE="clusterConfig.json"
 const OPSMGR_HOST="localhost:8080"
 
 // From Ops Manager, the Project ID (see Project Settings).
-const PROJECT_ID="64d564cd84b88e42d82b3233"
+const PROJECT_ID="64d6669bfffbfe424a600c81"
 
-// From Ops Manager, the API Key created in the project,
-// with Project Owner permissions and a suitable API access list. 
-const OM_USER="uivnciin"
-const PUBLIC_API_KEY="8c78814a-314a-4f5e-8bf8-3d82ad19c0d2"
+// Create an API key in Ops Manager and enter it here.
+// Access Manager > Project Access > API Keys > Create API Key
+// Project Permissions: Project Owner (the rest can be cleared).
+// Also add an Access List Entry. You can Use Current IP Address
+// and switch it to XXX.0.0.0/8.
+const OM_PUBLIC_KEY="mbfrwmve"
+const OM_PRIVATE_KEY="2642b692-1c64-40fb-a0f5-3341ef97b754"
 
 
 // All MongoDB processes belong to a single Automation Config. To make changes,
@@ -58,7 +61,7 @@ console.log("Retrieving existing configuration from Ops Manager....");
 const urllib = require('urllib');
 const apiUrl = `http://${OPSMGR_HOST}/api/public/v1.0/groups/${PROJECT_ID}/automationConfig?pretty=true`;
 var   options = { 
-  digestAuth: `${OM_USER}:${PUBLIC_API_KEY}`,
+  digestAuth: `${OM_PUBLIC_KEY}:${OM_PRIVATE_KEY}`,
 }
 
 // Default method with urllib is GET, so this will pull the existing config.
