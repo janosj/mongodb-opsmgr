@@ -6,7 +6,7 @@ A sample Node.js application to deploy a MongoDB cluster using the Ops Manager A
 ## Prerequisites
 
 - Node.js and NPM (Node Package Manager)
-- Ops Manager must be deployed in advance. The included cluster configuration assumes an Ops Manager demonstration environment has been provisioned using the Docker scripts provided in this repo. 
+- Ops Manager must be deployed in advance. 
 
 
 ## Deploying a Cluster
@@ -19,32 +19,27 @@ git clone https://github.com/janosj/mongodb-opsmgr.git
 
 ### 2. Install Dependencies
 
-Navigate to the directory containing the project in your shell, and then use the NPM dependency file that we included in the project directory called `package.json` to download and install your dependencies:
+Using a terminal window, navigate to this admin api directory and install the Node dependencies using the included NPM dependency file (*package.json*):
 
 ```shell
 npm install
 ```
 
-This command reads the `package.json` file and downloads and saves the
-dependencies defined within it to a directory called `node_modules`. It
-also creates a `package-lock.json` file that sets the version information for
-each of the modules required to build your project.
+This command reads the `package.json` file and downloads and saves the dependencies defined within it to a directory called `node_modules`. It also creates a `package-lock.json` file that sets the version information for each of the modules required to build your project.
 
-### 3. Configure your Ops Manager Settings
+### 3. Configure Ops Manager Settings
 
-The `deployShardeCluster.js` files contains a number of settings required by the API to connect to your Ops Manager instance and deploy resources. Be sure to update the OPSMGR_HOST, PROJECT_ID, OM_USER, and PUBLIC_API_KEY accordingly. Also note that cluster configuration file contains hardcoded server names. You can either deploy a 3-node Ops Manager system using the included scripts (for running a Docker demonstration environment) or adjust the configuration file to match your environment.
+`deployShardeCluster.js` contains a number of settings required by the API to connect to your Ops Manager instance and deploy resources. Be sure to update the OPSMGR_HOST, PROJECT_ID, OM_USER, and PUBLIC_API_KEY accordingly. Also note that the cluster configuration file contains hardcoded server names. You can either deploy a 3-node Ops Manager system using the included Docker scripts, or adjust the configuration file to match your environment.
 
 ### 4. Deploy the Cluster
 
 Deploy the cluster by running the Node.js application:
 
-```shell
+```
 node deployShardedCluster.js
 ```
 
-> node deployShardedCluster.js
-
-The application should return immediately, and the cluster should be listed immediately in the Deployment section of Ops Manager. In a few seconds or minutes, the cluster will be deployed, primaries will be elected, and the cluster will become available for use. 
+The application should return immediately and, likewise, the cluster should be immediately listed in the Deployment section of the Ops Manager UI. In a few seconds or minutes, the cluster will be deployed, primaries will be elected, and the cluster will become available for use. 
 
 ## Example Cluster Configuration
 
@@ -52,7 +47,7 @@ The example configuration is a Sharded cluster containing 2 shards, using single
 
 <img src="images/deploying-the-cluster.png" alt="Deploying the cluster with Ops Manager"/>
 
-The deployed cluster would look like this:
+The deployed cluster, as configured in `clusterConfig.json`, looks like this:
 
 <img src="images/deployed-cluster.png" alt="Example cluster deployed to Ops Manager"/>
 
