@@ -29,7 +29,7 @@ This command reads the `package.json` file and downloads and saves the dependenc
 
 ### 3. Configure Ops Manager Settings
 
-`deployShardeCluster.js` contains a number of settings required by the API to connect to your Ops Manager instance and deploy resources. Be sure to update the OPSMGR_HOST, PROJECT_ID, OM_USER, and PUBLIC_API_KEY accordingly. Also note that the cluster configuration file contains hardcoded server names. You can either deploy a 3-node Ops Manager system using the included Docker scripts, or adjust the configuration file to match your environment.
+`deployShardeCluster.js` contains a number of settings required by the API to connect to your Ops Manager instance and deploy resources. Be sure to update the OPSMGR_HOST, PROJECT_ID, OM_USER, and PUBLIC_API_KEY accordingly. Also note that the cluster configuration file contains hardcoded server names. You can either deploy a 3-node Ops Manager system using the included scripts (see [here](https://github.com/janosj/mongodb-opsmgr/tree/main/opsmgr-docker), or you can adjust the configuration file to match your environment.
 
 ### 4. Deploy the Cluster
 
