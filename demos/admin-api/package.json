@@ -1,0 +1,7 @@
+{
+  "author": "jonathan.janos@mongodb.com",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "urllib": "^3.17.1"
+  }
+}

@@ -1,0 +1,195 @@
+{
+  "processes" : [ {
+    "args2_6" : {
+      "net" : {
+        "port" : 27022
+      },
+      "replication" : {
+        "replSetName" : "myShard_0"
+      },
+      "storage" : {
+        "dbPath" : "/data"
+      },
+      "systemLog" : {
+        "destination" : "file",
+        "path" : "/data/mongodb.log"
+      }
+    },
+    "auditLogRotate" : {
+      "sizeThresholdMB" : 1000.0,
+      "timeThresholdHrs" : 24
+    },
+    "authSchemaVersion" : 5,
+    "disabled" : false,
+    "featureCompatibilityVersion" : "6.0",
+    "hostname" : "server2.opsnet",
+    "logRotate" : {
+      "sizeThresholdMB" : 1000.0,
+      "timeThresholdHrs" : 24
+    },
+    "manualMode" : false,
+    "name" : "myCluster_myShard_0_1",
+    "processType" : "mongod",
+    "version" : "6.0.8-ent"
+  }, {
+    "args2_6" : {
+      "net" : {
+        "port" : 27023
+      },
+      "replication" : {
+        "replSetName" : "myShard_1"
+      },
+      "storage" : {
+        "dbPath" : "/data"
+      },
+      "systemLog" : {
+        "destination" : "file",
+        "path" : "/data/mongodb.log"
+      }
+    },
+    "auditLogRotate" : {
+      "sizeThresholdMB" : 1000.0,
+      "timeThresholdHrs" : 24
+    },
+    "authSchemaVersion" : 5,
+    "disabled" : false,
+    "featureCompatibilityVersion" : "6.0",
+    "hostname" : "server3.opsnet",
+    "logRotate" : {
+      "sizeThresholdMB" : 1000.0,
+      "timeThresholdHrs" : 24
+    },
+    "manualMode" : false,
+    "name" : "myCluster_myShard_1_2",
+    "processType" : "mongod",
+    "version" : "6.0.8-ent"
+  }, {
+    "args2_6" : {
+      "net" : {
+        "port" : 27017
+      },
+      "replication" : {
+        "replSetName" : "configRS"
+      },
+      "sharding" : {
+        "clusterRole" : "configsvr"
+      },
+      "storage" : {
+        "dbPath" : "/data"
+      },
+      "systemLog" : {
+        "destination" : "file",
+        "path" : "/data/mongodb.log"
+      }
+    },
+    "auditLogRotate" : {
+      "sizeThresholdMB" : 1000.0,
+      "timeThresholdHrs" : 24
+    },
+    "authSchemaVersion" : 5,
+    "disabled" : false,
+    "featureCompatibilityVersion" : "6.0",
+    "hostname" : "server1.opsnet",
+    "logRotate" : {
+      "sizeThresholdMB" : 1000.0,
+      "timeThresholdHrs" : 24
+    },
+    "manualMode" : false,
+    "name" : "myCluster_configRS_3",
+    "processType" : "mongod",
+    "version" : "6.0.8-ent"
+  }, {
+    "args2_6" : {
+      "net" : {
+        "port" : 27021
+      },
+      "systemLog" : {
+        "destination" : "file",
+        "path" : "/data/mongos.log"
+      }
+    },
+    "auditLogRotate" : {
+      "sizeThresholdMB" : 1000.0,
+      "timeThresholdHrs" : 24
+    },
+    "authSchemaVersion" : 5,
+    "cluster" : "myCluster",
+    "disabled" : false,
+    "featureCompatibilityVersion" : "6.0",
+    "hostname" : "server1.opsnet",
+    "logRotate" : {
+      "sizeThresholdMB" : 1000.0,
+      "timeThresholdHrs" : 24
+    },
+    "manualMode" : false,
+    "name" : "myCluster_mongos_4",
+    "processType" : "mongos",
+    "version" : "6.0.8-ent"
+  } ],
+  "replicaSets" : [ {
+    "_id" : "myShard_0",
+    "members" : [ {
+      "_id" : 0,
+      "arbiterOnly" : false,
+      "buildIndexes" : true,
+      "hidden" : false,
+      "host" : "myCluster_myShard_0_1",
+      "priority" : 1.0,
+      "secondaryDelaySecs" : 0,
+      "votes" : 1
+    } ],
+    "protocolVersion" : "1",
+    "settings" : { }
+  }, {
+    "_id" : "myShard_1",
+    "members" : [ {
+      "_id" : 0,
+      "arbiterOnly" : false,
+      "buildIndexes" : true,
+      "hidden" : false,
+      "host" : "myCluster_myShard_1_2",
+      "priority" : 1.0,
+      "secondaryDelaySecs" : 0,
+      "votes" : 1
+    } ],
+    "protocolVersion" : "1",
+    "settings" : { }
+  }, {
+    "_id" : "configRS",
+    "members" : [ {
+      "_id" : 0,
+      "arbiterOnly" : false,
+      "buildIndexes" : true,
+      "hidden" : false,
+      "host" : "myCluster_configRS_3",
+      "priority" : 1.0,
+      "secondaryDelaySecs" : 0,
+      "votes" : 1
+    } ],
+    "protocolVersion" : "1",
+    "settings" : { }
+  } ],
+  "roles" : [ ],
+  "sharding" : [ {
+    "collections" : [ ],
+    "configServerReplica" : "configRS",
+    "draining" : [ ],
+    "managedSharding" : false,
+    "name" : "myCluster",
+    "shards" : [ {
+      "_id" : "myShard_0",
+      "rs" : "myShard_0",
+      "tags" : [ ]
+    }, {
+      "_id" : "myShard_1",
+      "rs" : "myShard_1",
+      "tags" : [ ]
+    } ],
+    "tags" : [ ]
+  } ],
+  "tls" : {
+    "clientCertificateMode" : "OPTIONAL"
+  },
+  "version" : 2
+}
+
