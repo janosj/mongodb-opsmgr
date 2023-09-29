@@ -1,4 +1,4 @@
-source ../conf/demo.conf
+source ../demo.conf
 
 if [ -z "$MDB_CONNECT" ]
 then
