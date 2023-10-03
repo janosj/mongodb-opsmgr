@@ -1,0 +1,16 @@
+{
+  "name": "mongodb-writer",
+  "version": "1.0.0",
+  "description": "Performs continuous inserts",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Jonathan Janos",
+  "license": "",
+  "dependencies": {
+    "mongodb": "^5.8.1",
+    "random-words": "^1.3.0"
+  }
+}
