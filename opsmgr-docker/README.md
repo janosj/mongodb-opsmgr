@@ -30,7 +30,7 @@ To demonstrate backups (using a blockstore for snapshot storage):
 
 - You need a running backup database. Use the *start-backup.sh* script to launch another MongoDB database container.
 
-- You need to manually enable and configure backups through the Ops Manager UI. Select *Continuous Backups* on the menu and click through the guided process. Ops Manager will detect the preconfigured directory for the headdb at **/data/headdb**. Click **Enable Daemon**, and then **Configure a Blockstore**. Configure the blockstore to connect at **backupdb:27017** and leave all other fields blank.
+- You need to manually enable and configure backups through the Ops Manager UI. Select *Continuous Backups* on the menu and click through the guided process. Ops Manager will detect the preconfigured directory for the headdb at */data/headdb*. Click *Enable Daemon*, and then *Configure a Blockstore*. Configure the blockstore to connect at *backupdb:27017* and leave all other fields blank.
 
 You should now be able to initiate a backup and demonstrate the recovery process.
 
