@@ -1,5 +1,6 @@
 // Node.js code to deploy a cluster using the Ops Manager API.
 // Ops Manager must be deployed in advance. This script does not support SSL.
+// Why Node.js? Because a lot of JSON manipulation is required.
 
 // Use "npm install" to install Node.js dependencies.
 
@@ -15,15 +16,15 @@ const CONFIG_FILE="clusterConfig.json"
 const OPSMGR_HOST="localhost:8080"
 
 // From Ops Manager, the Project ID (see Project Settings).
-const PROJECT_ID="64d6669bfffbfe424a600c81"
+const PROJECT_ID="64e6495da6f4db11f8504cc1"
 
 // Create an API key in Ops Manager and enter it here.
 // Access Manager > Project Access > API Keys > Create API Key
 // Project Permissions: Project Owner (the rest can be cleared).
 // Also add an Access List Entry. You can Use Current IP Address
 // and switch it to XXX.0.0.0/8.
-const OM_PUBLIC_KEY="mbfrwmve"
-const OM_PRIVATE_KEY="2642b692-1c64-40fb-a0f5-3341ef97b754"
+const OM_PUBLIC_KEY="vqtjhonz"
+const OM_PRIVATE_KEY="f72ecb50-d2a6-42b4-9bb8-c5d918b53bcd"
 
 
 // All MongoDB processes belong to a single Automation Config. To make changes,
