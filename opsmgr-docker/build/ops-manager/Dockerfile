@@ -1,5 +1,7 @@
 FROM amazonlinux:2
-#FROM ubuntu:20.04
+# FROM ubuntu:20.04
+# OS Compatibility Matrix:
+# https://www.mongodb.com/docs/ops-manager/current/core/requirements/#operating-systems-compatible-with-onprem
 
 ARG OM_VERSION
 ARG JDK_ARM64_BINARY
@@ -40,9 +42,9 @@ RUN echo "Copying, extracting, and configuring OM ..." \
 # Replaces the JDK with the ARM64 version (the JDK version should match the OM release). 
 # Download an ARM64 OpenJDK (this only happens if the Targeted Architecture is arm64)
 RUN echo "Replacing JDK with ARM version from $JDK_ARM64_BINARY..." \
- && curl -sLo jdk11-arm64.tar.gz "$JDK_ARM64_BINARY" \
- && tar -xzf jdk11-arm64.tar.gz \
- && rm -rf jdk11-arm64.tar.gz \
+ && curl -sLo jdk-arm64.tar.gz "$JDK_ARM64_BINARY" \
+ && tar -xzf jdk-arm64.tar.gz \
+ && rm -rf jdk-arm64.tar.gz \
  && rm -rf mongodb-mms/jdk \
  && mv jdk-* jdk \
  && mv jdk mongodb-mms/

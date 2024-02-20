@@ -16,7 +16,7 @@ RUN yum install -y cyrus-sasl cyrus-sasl-gssapi \
 #   shadow-utils: ?
 #   procps:       for the ps command
 #   hostname:     agent fails to start without it.
-RUN yum update \
+RUN yum update -y \
  && yum install -y shadow-utils \
                    procps \
                    hostname \
