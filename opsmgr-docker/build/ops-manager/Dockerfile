@@ -1,7 +1,10 @@
-FROM amazonlinux:2
-# FROM ubuntu:20.04
+FROM amazonlinux:2023
+
 # OS Compatibility Matrix:
 # https://www.mongodb.com/docs/ops-manager/current/core/requirements/#operating-systems-compatible-with-onprem
+
+# tar.gz installation instructions:
+# https://www.mongodb.com/docs/ops-manager/current/tutorial/install-on-prem-from-archive/
 
 ARG OM_VERSION
 ARG JDK_ARM64_BINARY
@@ -20,11 +23,6 @@ EXPOSE $DEFAULT_OM_PORT/tcp
 RUN test -n "$OM_VERSION" || (echo "OM_VERSION must be set (e.g., '5.0.10')" && false) \
  && yum install -y tar gzip openssl \
                    procps net-tools
-
-# TO-DO: Verify these are being properly set.
-# Ensure ulimit settings meet minimum requirements.
-# Ops Manager fails if these aren't in place, especially once you enable backups.
-COPY limits.conf /etc/security
 
 # Copy the setup scripts
 COPY scripts /root/scripts
