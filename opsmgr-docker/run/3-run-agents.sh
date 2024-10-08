@@ -2,6 +2,11 @@ source ../env.conf
 
 agent_count=$1
 
+# The agent version in this repo doesn't match the official versioning scheme,
+# it's been simplified to match the OM Version.
+# e.g. OM 8.0.0 uses AGENT 8.0.0. The latest OM uses the latest Agent.
+AGENT_VERSION=$OM_RUN_VERSION
+
 if [ -z "$agent_count" ]; then
     echo "No argument supplied"
     echo "Usage: run-agents.sh <agent-count>"
@@ -34,7 +39,7 @@ while [ $i -lt $agent_count ]; do
   # parameters _before_ the automation-agent command are docker parameters, 
   # parameters _after_  the automation-agent command are _agent_ parameters.
   # Ports: a set of unique ports is exposed on each agent, which can be used for external connectivity.
-  docker run -d --network $DOCKER_NETWORK -p 2702${i}:2702${i} -p 2703${i}:2703${i} -p 3306${i}:3306${i} --name server${i} --hostname server${i}.$DOCKER_NETWORK -t "$AGENT_TAG" /opt/mongodb-mms-automation/bin/mongodb-mms-automation-agent --mmsGroupId=$MMSGROUPID --mmsApiKey=$MMSAPIKEY --mmsBaseUrl=http://$OM_URL:8080 -logLevel=INFO
+  docker run -d --network $DOCKER_NETWORK -p 2702${i}:2702${i} -p 2703${i}:2703${i} -p 3306${i}:3306${i} --name server${i} --hostname server${i}.$DOCKER_NETWORK -t "$AGENT_TAG:$AGENT_VERSION" /opt/mongodb-mms-automation/bin/mongodb-mms-automation-agent --mmsGroupId=$MMSGROUPID --mmsApiKey=$MMSAPIKEY --mmsBaseUrl=http://$OM_URL:8080 -logLevel=INFO
 
 done
 

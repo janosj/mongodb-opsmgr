@@ -52,9 +52,11 @@ main() {
     _replace_property_in_file "$conf_file" "automation.versions.directory" "${automation_release_dir}"
 
     # Adjust Java memory settings.
-    # The Ops Manager process will be killed if it tries to consume too much memory.
+    # Ops Manager 8.0 increased memory consumption from 4352 to 8096,
+    # which is too much for a 16GB MacBook - the OM process is eventually killed.
+    # This reverts it back to the previous setting (for demo purposes only).
     cp /root/mongodb-mms/conf/mms.conf /root/mongodb-mms/conf/mms.conf.original
-    sed -i "s/8096/4048/g" /root/mongodb-mms/conf/mms.conf
+    sed -i "s/8096/4352/g" /root/mongodb-mms/conf/mms.conf
 
     echo "Generating an encryption key"
     echo "WARNING: this is highly insecure, DO NOT IN PRODUCTION!"

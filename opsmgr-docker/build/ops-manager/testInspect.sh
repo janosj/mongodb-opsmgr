@@ -3,7 +3,7 @@
 source ../../env.conf
 
 # Assumes container hasn't been previously run:
-docker run -it --rm --name ops-manager $OM_TAG:latest bash
+docker run -it --rm --name ops-manager $OM_TAG:$OM_BUILD_VERSION bash
 
 # If the container is already running:
 # docker exec -it ops-manager bash
